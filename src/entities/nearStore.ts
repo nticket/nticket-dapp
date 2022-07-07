@@ -10,6 +10,7 @@ export type NearStoreState = {
   wallet: null | WalletConnection;
   isSignedIn: boolean;
   accountId: null | string;
+  account: null | any;
 };
 
 export const useNearStore = defineStore("NearStore", {
@@ -20,6 +21,7 @@ export const useNearStore = defineStore("NearStore", {
       wallet: null,
       isSignedIn: false,
       accountId: null,
+      account: null,
     };
   },
   actions: {
@@ -40,7 +42,9 @@ export const useNearStore = defineStore("NearStore", {
 
     signIn() {
       if (this.wallet && !this.wallet.isSignedIn()) {
-        this.wallet.requestSignIn();
+        this.wallet.requestSignIn().then(() => {
+          this.isSignedIn = true;
+        });
         this.getAccountId();
       }
     },
@@ -50,16 +54,25 @@ export const useNearStore = defineStore("NearStore", {
         this.wallet.signOut();
         this.isSignedIn = false;
         this.accountId = null;
+        this.wallet = null;
       }
     },
 
     getAccountId() {
-      if (this.wallet && !this.wallet.isSignedIn()) {
-        const id = this.wallet.getAccountId();
+      if (this.wallet) {
+        this.accountId = this.wallet.getAccountId();
 
-        this.accountId = id;
+        return this.accountId;
+      }
 
-        return id;
+      return null;
+    },
+
+    async getAccount() {
+      if (this.wallet) {
+        this.account = await this.wallet.account();
+
+        return this.account;
       }
 
       return null;

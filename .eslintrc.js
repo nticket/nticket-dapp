@@ -113,6 +113,7 @@ module.exports = {
       rules: {
         ...commonRules,
         "vue/singleline-html-element-content-newline": 0,
+        "vue/max-attributes-per-line": 0,
         "vue/html-indent": [
           "error",
           2,

@@ -7,7 +7,8 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, ref } from "vue";
+import { storeToRefs } from "pinia";
+import { defineComponent, onMounted } from "vue";
 
 import { useNearStore } from "@/entities/nearStore";
 
@@ -18,10 +19,10 @@ export const NearIsConnectedPage = defineComponent({
   components: { NearSignOutButton },
   setup() {
     const nearStore = useNearStore();
-    const accountId = ref(null);
+    const { accountId } = storeToRefs(nearStore);
 
     onMounted(() => {
-      accountId.value = nearStore.wallet?.getAccountId();
+      nearStore.getAccountId();
     });
 
     return { accountId };

@@ -1,13 +1,12 @@
 <template>
-  <ALayout>
-    <ALayoutHeader class="header">NTicket</ALayoutHeader>
+  <ALayout class="app-layout">
+    <ALayoutHeader class="header">
+      <RouterLink class="header__logo" to="/">NTicket</RouterLink>
+    </ALayoutHeader>
 
     <ALayoutContent>
       <h1>App</h1>
-
-      <NearIsConnectedPage v-if="isSignedIn" />
-
-      <ConnectWalletPage v-if="!isSignedIn" />
+      <RouterView />
     </ALayoutContent>
 
     <ALayoutFooter>&copy; NTicket, 2022</ALayoutFooter>
@@ -15,26 +14,20 @@
 </template>
 
 <script lang="ts">
-import { storeToRefs } from "pinia";
 import { defineComponent, onBeforeMount } from "vue";
 
 import { useNearStore } from "@/entities/nearStore";
 
-import ConnectWalletPage from "@/pages/ConnectWalletPage.vue";
-import NearIsConnectedPage from "@/pages/NearIsConnectedPage.vue";
-
 export default defineComponent({
   name: "App",
-  components: { ConnectWalletPage, NearIsConnectedPage },
   setup() {
     const nearStore = useNearStore();
-    const { isSignedIn, inited } = storeToRefs(nearStore);
 
     onBeforeMount(() => {
       nearStore.init();
     });
 
-    return { isSignedIn, inited };
+    return {};
   },
 });
 </script>
@@ -46,6 +39,12 @@ export default defineComponent({
 }
 
 .header {
-  color: white;
+  &__logo {
+    color: white;
+  }
+}
+
+.app-layout {
+  min-height: 100vh;
 }
 </style>
