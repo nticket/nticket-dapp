@@ -1,5 +1,12 @@
 <template>
-  <h1>App</h1>
+  <ALayout>
+    <ALayoutHeader class="header">Header</ALayoutHeader>
+
+    <ALayoutContent>
+      <h1>App</h1>
+    </ALayoutContent>
+    <ALayoutFooter>Footer</ALayoutFooter>
+  </ALayout>
 </template>
 
 <script lang="ts">
@@ -7,6 +14,9 @@ import { defineComponent } from "vue";
 
 export default defineComponent({
   name: "App",
+  setup() {
+    return {};
+  },
 });
 </script>
 
@@ -14,6 +24,9 @@ export default defineComponent({
 #app {
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+}
+
+.header {
+  color: white;
 }
 </style>

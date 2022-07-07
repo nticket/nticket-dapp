@@ -1,4 +1,5 @@
 const commonRules = {
+  // quotes: [2, "single", "avoid-escape"],
   "@typescript-eslint/interface-name-prefix": "off",
   "@typescript-eslint/explicit-function-return-type": "off",
   "@typescript-eslint/explicit-module-boundary-types": "off",
@@ -66,8 +67,6 @@ const commonExtends = [
 
 module.exports = {
   root: true,
-  // parser: "@typescript-eslint/parser", // Specifies the ESLint parser
-  plugins: ["@typescript-eslint", "import"],
   env: {
     node: true,
   },
@@ -81,9 +80,8 @@ module.exports = {
       node: {
         extensions: [".ts", ".js", ".vue", ".json"],
       },
-
-      alias: {
-        map: [["src", "./src/**/*"]],
+      vue: {
+        extensions: [".ts", ".js", ".vue", ".json"],
       },
     },
   },
@@ -92,8 +90,8 @@ module.exports = {
       files: ["*.js", "*.ts"],
       parser: "@typescript-eslint/parser",
       parserOptions: {
-        // project: "tsconfig.json",
         sourceType: "module",
+        ecmaVersion: 2020,
       },
       extends: [...commonExtends, "plugin:import/typescript"],
       rules: { ...commonRules },
@@ -105,6 +103,7 @@ module.exports = {
       parserOptions: {
         parser: "@typescript-eslint/parser",
         sourceType: "module",
+        ecmaVersion: 2020,
       },
       extends: [
         ...commonExtends,
@@ -113,6 +112,7 @@ module.exports = {
       ],
       rules: {
         ...commonRules,
+        "vue/singleline-html-element-content-newline": 0,
         "vue/html-indent": [
           "error",
           2,
