@@ -1,21 +1,40 @@
 <template>
   <ALayout>
-    <ALayoutHeader class="header">Header</ALayoutHeader>
+    <ALayoutHeader class="header">NTicket</ALayoutHeader>
 
     <ALayoutContent>
       <h1>App</h1>
+
+      <NearIsConnectedPage v-if="isSignedIn" />
+
+      <ConnectWalletPage v-if="!isSignedIn" />
     </ALayoutContent>
-    <ALayoutFooter>Footer</ALayoutFooter>
+
+    <ALayoutFooter>&copy; NTicket, 2022</ALayoutFooter>
   </ALayout>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { storeToRefs } from "pinia";
+import { defineComponent, onBeforeMount } from "vue";
+
+import { useNearStore } from "@/entities/nearStore";
+
+import ConnectWalletPage from "@/pages/ConnectWalletPage.vue";
+import NearIsConnectedPage from "@/pages/NearIsConnectedPage.vue";
 
 export default defineComponent({
   name: "App",
+  components: { ConnectWalletPage, NearIsConnectedPage },
   setup() {
-    return {};
+    const nearStore = useNearStore();
+    const { isSignedIn, inited } = storeToRefs(nearStore);
+
+    onBeforeMount(() => {
+      nearStore.init();
+    });
+
+    return { isSignedIn, inited };
   },
 });
 </script>
