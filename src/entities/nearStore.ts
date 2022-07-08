@@ -1,6 +1,6 @@
-import * as nearAPI from "near-api-js";
-import { Near, WalletConnection } from "near-api-js";
-import { defineStore } from "pinia";
+import * as nearAPI from 'near-api-js';
+import { Near, WalletConnection } from 'near-api-js';
+import { defineStore } from 'pinia';
 
 const { keyStores } = nearAPI;
 
@@ -13,7 +13,7 @@ export type NearStoreState = {
   account: null | any;
 };
 
-export const useNearStore = defineStore("NearStore", {
+export const useNearStore = defineStore('NearStore', {
   state(): NearStoreState {
     return {
       inited: false,
@@ -27,38 +27,45 @@ export const useNearStore = defineStore("NearStore", {
   actions: {
     async init() {
       this.instance = await nearAPI.connect({
-        networkId: "testnet",
+        networkId: 'testnet',
         keyStore: new keyStores.BrowserLocalStorageKeyStore(), // optional if not signing transactions
-        nodeUrl: "https://rpc.testnet.near.org",
-        walletUrl: "https://wallet.testnet.near.org",
-        helperUrl: "https://helper.testnet.near.org",
+        nodeUrl: 'https://rpc.testnet.near.org',
+        walletUrl: 'https://wallet.testnet.near.org',
+        helperUrl: 'https://helper.testnet.near.org',
         headers: {},
         // explorerUrl: "https://explorer.testnet.near.org",
       });
-      this.wallet = new WalletConnection(this.instance, "nticket");
+      this.wallet = new WalletConnection(this.instance, 'nticket');
       this.inited = true;
       this.isSignedIn = this.wallet.isSignedIn();
     },
 
-    signIn() {
+    async signIn() {
       if (this.wallet && !this.wallet.isSignedIn()) {
-        this.wallet.requestSignIn().then(() => {
+        try {
+          await this.wallet.requestSignIn();
           this.isSignedIn = true;
-        });
-        this.getAccountId();
+          this.getAccountId();
+        } catch (e) {}
       }
     },
 
-    signOut() {
+    async signOut() {
       if (this.wallet && this.wallet.isSignedIn()) {
-        this.wallet.signOut();
-        this.isSignedIn = false;
-        this.accountId = null;
-        this.wallet = null;
+        try {
+          await this.wallet.signOut();
+          this.isSignedIn = false;
+          this.accountId = null;
+          this.wallet = null;
+        } catch (e) {}
       }
     },
 
-    async getAccountId() {
+    getAccountId() {
+      if (this.accountId) {
+        return this.accountId;
+      }
+
       if (this.wallet) {
         this.accountId = this.wallet.getAccountId();
 
@@ -68,9 +75,13 @@ export const useNearStore = defineStore("NearStore", {
       return null;
     },
 
-    async getAccount() {
+    getAccount() {
+      if (this.account) {
+        return this.account;
+      }
+
       if (this.wallet) {
-        this.account = await this.wallet.account();
+        this.account = this.wallet.account();
 
         return this.account;
       }

@@ -7,15 +7,15 @@
 </template>
 
 <script lang="ts">
-import { storeToRefs } from "pinia";
-import { defineComponent, onMounted } from "vue";
+import { storeToRefs } from 'pinia';
+import { defineComponent, onMounted } from 'vue';
 
-import { useNearStore } from "@/entities/nearStore";
+import { useNearStore } from '@/entities/nearStore';
 
-import NearSignOutButton from "@/features/NearSignOutButton.vue";
+import NearSignOutButton from '@/features/NearSignOutButton.vue';
 
 export const NearIsConnectedPage = defineComponent({
-  name: "NearIsConnectedPage",
+  name: 'NearIsConnectedPage',
   components: { NearSignOutButton },
   setup() {
     const nearStore = useNearStore();

@@ -17,16 +17,16 @@
 </template>
 
 <script lang="ts">
-import { storeToRefs } from "pinia";
-import { defineComponent } from "vue";
+import { storeToRefs } from 'pinia';
+import { defineComponent } from 'vue';
 
-import { useNearStore } from "@/entities/nearStore";
+import { useNearStore } from '@/entities/nearStore';
 
-import ConnectWalletPage from "@/pages/ConnectWalletPage.vue";
-import NearIsConnectedPage from "@/pages/NearIsConnectedPage.vue";
+import ConnectWalletPage from '@/pages/ConnectWalletPage.vue';
+import NearIsConnectedPage from '@/pages/NearIsConnectedPage.vue';
 
 export const HomePage = defineComponent({
-  name: "HomePage",
+  name: 'HomePage',
   components: { ConnectWalletPage, NearIsConnectedPage },
   setup() {
     const nearStore = useNearStore();

@@ -3,12 +3,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import { useNearStore } from "@/entities/nearStore";
+import { useNearStore } from '@/entities/nearStore';
 
 export const NearConnectButton = defineComponent({
-  name: "NearConnectButton",
+  name: 'NearConnectButton',
   setup() {
     const store = useNearStore();
 
