@@ -58,7 +58,7 @@ export const useNearStore = defineStore("NearStore", {
       }
     },
 
-    getAccountId() {
+    async getAccountId() {
       if (this.wallet) {
         this.accountId = this.wallet.getAccountId();
 
