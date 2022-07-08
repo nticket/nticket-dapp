@@ -10,7 +10,7 @@
         :description="item.metadata.description"
       />
 
-      <p class="event-card__price">Price: {{ formattedPrice }} NEAR</p>
+      <p class="event-card__price">Price: {{ formattedPrice }} <span class="near-symbol">Ⓝ</span></p>
 
       <template #actions>
         <AButton @click="handleSubmit">Buy</AButton>
@@ -54,5 +54,9 @@ export default EventCard;
     margin-top: 30px;
     color: $color-disabled;
   }
+}
+
+.near-symbol {
+  font-size: 18px;
 }
 </style>

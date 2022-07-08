@@ -21,7 +21,7 @@ import { useRouter } from 'vue-router';
 
 import EventCard from '@/pages/EventsManagement/EventCard.vue'
 
-import { useEventsStore } from "@/entities/eventsStore";
+import { useEventsStore } from "@/entities/events/eventsStore";
 
 
 export const EventsManagementPage = defineComponent({

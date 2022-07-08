@@ -10,7 +10,7 @@
         :description="item.metadata.description"
       />
 
-      <p class="event-card__price">Price: {{ formattedPrice }} NEAR</p>
+      <p class="event-card__price">Price: {{ formattedPrice }} <span class="near-symbol">Ⓝ</span></p>
 
       <template #actions>
         <AButton @click="handleSubmit">Manage Staff</AButton>
@@ -22,8 +22,8 @@
 <script lang="ts">
 import { computed, defineComponent, PropType } from 'vue';
 
-import { useEventsStore } from '@/entities/eventsStore';
-import { NEvent } from '@/pages/EventsList/events.types';
+import { useEventsStore } from '@/entities/events/eventsStore';
+import { NEvent } from '@/entities/events/events.types';
 
 export const EventCard = defineComponent({
   name: 'EventCard',
@@ -53,5 +53,9 @@ export default EventCard;
     margin-top: 30px;
     color: $color-disabled;
   }
+}
+
+.near-symbol {
+  font-size: 18px;
 }
 </style>

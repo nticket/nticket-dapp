@@ -2,7 +2,7 @@ import './app/styles/index.scss';
 import 'ant-design-vue/dist/antd.css';
 import { Buffer } from 'buffer';
 
-import { Layout, Button, Card, Tag, Modal, Badge, Menu } from 'ant-design-vue';
+import { Layout, Button, Card, Tag, Modal, Badge, Menu, Input } from 'ant-design-vue';
 import { createPinia } from 'pinia';
 import { createApp } from 'vue';
 
@@ -20,6 +20,7 @@ app.use(Tag);
 app.use(Modal);
 app.use(Badge);
 app.use(Menu);
+app.use(Input);
 
 app.use(pinia);
 app.use(router);

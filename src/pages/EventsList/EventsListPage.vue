@@ -7,7 +7,7 @@
         :key="item.token_series_id"
         :item="item"
         class="events-list-page__event-card"
-        @submit="handleBuyTicket(item.token_series_id)"
+        @submit="handleBuyTicket(item.token_series_id, item.price)"
       />
     </div>
   </div>
@@ -41,7 +41,7 @@ export const EventsListPage = defineComponent({
         title: 'Wanna this? Huh?',
         content: 'Wat?',
         onOk() {
-          eventsStore.buyEvent(id, price);
+          eventsStore.buyTicket(id, price);
         },
       });
     };
