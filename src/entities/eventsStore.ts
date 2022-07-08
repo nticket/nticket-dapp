@@ -1,14 +1,18 @@
-import { Contract } from "near-api-js";
-import { defineStore } from "pinia";
+import { Contract, utils } from 'near-api-js';
+import { defineStore } from 'pinia';
+import { toRaw } from 'vue';
 
-import { useNearStore } from "@/entities/nearStore";
+import { useNearStore } from '@/entities/nearStore';
+import { NEvent } from '@/pages/EventsList/events.types';
 
 type EventsStoreState = {
   contract: null | Contract;
-  events: any[];
+  events: NEvent[];
 };
 
-export const useEventsStore = defineStore("EventsStore", {
+const { VUE_APP_PARAS_WALLET_ADDRESS = '' } = process.env;
+
+export const useEventsStore = defineStore('EventsStore', {
   state(): EventsStoreState {
     return {
       contract: null,
@@ -16,26 +20,63 @@ export const useEventsStore = defineStore("EventsStore", {
     };
   },
   actions: {
-    async getEvents() {
+    async getContract() {
+      if (!this.contract) {
+        const nearStore = useNearStore();
+        const account = nearStore.getAccount();
+
+        this.contract = new Contract(account, VUE_APP_PARAS_WALLET_ADDRESS, {
+          viewMethods: [],
+          changeMethods: [],
+          // @ts-ignore
+          sender: account,
+        });
+      }
+
+      return this.contract;
+    },
+    async getEvents(): Promise<NEvent[]> {
       const nearStore = useNearStore();
+      const account = nearStore.getAccount();
 
-      await nearStore.getAccount();
-
-      if (nearStore.account) {
+      if (account) {
         // по сути костыль
-        this.events = await nearStore.account.viewFunction(
-          process.env.VUE_APP_PARAS_WALLET_ADDRESS || "",
-          "nft_get_series",
+        this.events = await account.viewFunction(
+          VUE_APP_PARAS_WALLET_ADDRESS,
+          'nft_get_series',
           {
-            from_index: "0", // потому что там тип /u128 (считай BigInt)
+            from_index: '0', // потому что там тип /u128 (считай BigInt)
             limit: 5, // а тут /u64, а в JS Number - 64 bit
           }
         );
+
+        console.log('events', toRaw(this.events));
 
         return this.events;
       }
 
       return [];
+    },
+
+    _yoctoNearToNear(yoctoAmount: string | number) {
+      try {
+        return utils.format.formatNearAmount(String(yoctoAmount));
+      } catch (e) {
+        return 0;
+      }
+    },
+
+    async buyEvent(token_series_id: string | number) {
+      const nearStore = useNearStore();
+      const account = nearStore.getAccount();
+
+      if (account) {
+        return await account?.changeFunction?.(
+          VUE_APP_PARAS_WALLET_ADDRESS,
+          'nft_buy',
+          { token_series_id, receiver_id: nearStore.getAccountId() }
+        );
+      }
     },
   },
 });

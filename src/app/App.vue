@@ -4,7 +4,7 @@
       <RouterLink class="header__logo" to="/">NTicket</RouterLink>
     </ALayoutHeader>
 
-    <ALayoutContent>
+    <ALayoutContent class="app-layout__content">
       <h1>App</h1>
       <RouterView />
     </ALayoutContent>
@@ -14,12 +14,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount } from "vue";
+import { defineComponent, onBeforeMount } from 'vue';
 
-import { useNearStore } from "@/entities/nearStore";
+import { useNearStore } from '@/entities/nearStore';
 
 export default defineComponent({
-  name: "App",
+  name: 'App',
   setup() {
     const nearStore = useNearStore();
 
@@ -33,11 +33,6 @@ export default defineComponent({
 </script>
 
 <style lang="scss">
-#app {
-  text-align: center;
-  color: #2c3e50;
-}
-
 .header {
   &__logo {
     color: white;
@@ -46,5 +41,11 @@ export default defineComponent({
 
 .app-layout {
   min-height: 100vh;
+
+  &__content {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+  }
 }
 </style>

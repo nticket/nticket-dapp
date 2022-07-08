@@ -1,12 +1,12 @@
-import "./app/styles/index.scss";
-import "ant-design-vue/dist/antd.css";
-import { Buffer } from "buffer";
+import './app/styles/index.scss';
+import 'ant-design-vue/dist/antd.css';
+import { Buffer } from 'buffer';
 
-import { Layout, Button, Card, Tag } from "ant-design-vue";
-import { createPinia } from "pinia";
-import { createApp } from "vue";
+import { Layout, Button, Card, Tag, Modal, Badge } from 'ant-design-vue';
+import { createPinia } from 'pinia';
+import { createApp } from 'vue';
 
-import { App, router } from "@/app";
+import { App, router } from '@/app';
 
 globalThis.Buffer = Buffer;
 
@@ -17,8 +17,10 @@ app.use(Layout);
 app.use(Button);
 app.use(Card);
 app.use(Tag);
+app.use(Modal);
+app.use(Badge);
 
 app.use(pinia);
 app.use(router);
 
-app.mount("#app");
+app.mount('#app');

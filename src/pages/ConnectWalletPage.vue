@@ -6,12 +6,12 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from "vue";
+import { defineComponent } from 'vue';
 
-import NearConnectButton from "@/features/NearConnectButton.vue";
+import NearConnectButton from '@/features/NearConnectButton.vue';
 
 export const ConnectWalletPage = defineComponent({
-  name: "ConnectWalletPage",
+  name: 'ConnectWalletPage',
   components: { NearConnectButton },
 });
 export default ConnectWalletPage;
