@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Modal } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 import { useEventsStore } from '@/entities/eventsStore';
 
@@ -47,6 +47,7 @@ export const EventsListPage = defineComponent({
       events,
       handleBuyTicket,
       formatPrice: eventsStore._yoctoNearToNear,
+      selectedKeys: ref<string[]>(['1']),
     };
   },
 });

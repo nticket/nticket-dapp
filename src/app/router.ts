@@ -1,8 +1,8 @@
 import { createRouter, createWebHashHistory } from 'vue-router';
 
-import EventsListPage from "@/pages/EventsListPage.vue";
-import EventsManagementPage from "@/pages/EventsManagementPage.vue";
-import EventsManagementStaffPage from "@/pages/EventsManagementStaffPage.vue";
+import EventsListPage from "@/pages/EventsList/EventsListPage.vue";
+import EventsManagementPage from "@/pages/EventsManagement/EventsManagementPage.vue";
+import EventsManagementStaffPage from "@/pages/EventsManagement/EventsManagementStaffPage.vue";
 import HomePage from "@/pages/HomePage.vue";
 
 const routes: any[] = [

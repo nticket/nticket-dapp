@@ -1,9 +1,10 @@
-import { Contract, utils } from 'near-api-js';
-import { defineStore } from 'pinia';
-import { toRaw } from 'vue';
+import { Contract, utils } from 'near-api-js'
+import { defineStore } from 'pinia'
+import { toRaw } from 'vue'
 
-import { useNearStore } from '@/entities/nearStore';
-import { NEvent } from '@/pages/EventsList/events.types';
+import { useNearStore } from '@/entities/nearStore'
+import { NEvent } from '@/pages/EventsList/events.types'
+import { parse } from '@typescript-eslint/parser'
 
 type EventsStoreState = {
   contract: null | Contract;
@@ -67,18 +68,38 @@ export const useEventsStore = defineStore('EventsStore', {
 
       if (nearStore.account) {
         this.ownedEvents = await nearStore.account.viewFunction(
-          process.env.VUE_APP_PARAS_WALLET_ADDRESS || "",
-          "nft_token_series_for_owner",
+          process.env.VUE_APP_PARAS_WALLET_ADDRESS || '',
+          'nft_token_series_for_owner',
           {
             account_id: nearStore.account.accountId,
-            from_index: "0",
+            from_index: '0',
             limit: 10, // TODO: сделать нормальную пагинацию
           }
         );
 
-        console.log(this.ownedEvents)
-
         return this.ownedEvents;
+      }
+
+      return [];
+    },
+
+    async getOwnedEventById(id: any) {
+      const nearStore = useNearStore();
+
+      await nearStore.getAccount();
+
+      if (nearStore.account) {
+        const event = await nearStore.account.viewFunction(
+          process.env.VUE_APP_PARAS_WALLET_ADDRESS || '',
+          'nft_get_series_single',
+          {
+            token_series_id: id,
+          }
+        );
+
+        console.log(event)
+
+        return event;
       }
 
       return [];
