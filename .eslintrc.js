@@ -14,7 +14,11 @@ const commonRules = {
   'import/no-default-export': 0,
   'import/no-named-as-default': 1,
   'import/no-named-as-default-member': 1,
-  'no-unused-vars': ['error', { args: 'after-used', ignoreRestSiblings: true }],
+  'no-unused-vars': 'off',
+  '@typescript-eslint/no-unused-vars': [
+    'error',
+    { args: 'after-used', ignoreRestSiblings: true },
+  ],
   'arrow-parens': ['error', 'always'],
   'padding-line-between-statements': [
     'error',
@@ -44,6 +48,11 @@ const commonRules = {
       ],
       pathGroups: [
         // TODO: add groups
+        {
+          pattern: '{.*,@*}/**/*.types',
+          group: 'internal',
+          position: 'after',
+        },
         {
           pattern: '{.*,@*}/**/*.vue',
           group: 'internal',
