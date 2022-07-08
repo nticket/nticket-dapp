@@ -18,7 +18,7 @@ import { Modal } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
 import { defineComponent, onMounted } from 'vue';
 
-import { useEventsStore } from '@/entities/eventsStore';
+import { useEventsStore } from '@/entities/events/eventsStore';
 
 import EventCard from '@/pages/EventsList/EventCard.vue';
 
@@ -33,12 +33,15 @@ export const EventsListPage = defineComponent({
       eventsStore.getEvents();
     });
 
-    const handleBuyTicket = async (id: string | number) => {
+    const handleBuyTicket = async (
+      id: string | number,
+      price: number | string
+    ) => {
       Modal.confirm({
         title: 'Wanna this? Huh?',
         content: 'Wat?',
         onOk() {
-          eventsStore.buyEvent(id);
+          eventsStore.buyEvent(id, price);
         },
       });
     };

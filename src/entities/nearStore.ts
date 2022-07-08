@@ -62,31 +62,19 @@ export const useNearStore = defineStore('NearStore', {
     },
 
     getAccountId() {
-      if (this.accountId) {
-        return this.accountId;
-      }
-
-      if (this.wallet) {
+      if (!this.accountId && this.wallet) {
         this.accountId = this.wallet.getAccountId();
-
-        return this.accountId;
       }
 
-      return null;
+      return this.accountId;
     },
 
     getAccount() {
-      if (this.account) {
-        return this.account;
-      }
-
-      if (this.wallet) {
+      if (!this.account && this.wallet) {
         this.account = this.wallet.account();
-
-        return this.account;
       }
 
-      return null;
+      return this.account;
     },
   },
 });
