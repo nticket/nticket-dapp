@@ -14,19 +14,19 @@
                 @close="removeStaff(id, item)"
             >{{ item }}</ATag>
           </p>
-
-          <p>
-            <AInputSearch
-              placeholder="Add Staff"
-              enter-button="Add"
-              size="large"
-              @search="addStaff"
-            />
-          </p>
         </template>
         <div v-else>
           <p>There is no staff in your event</p>
         </div>
+
+        <p>
+          <AInputSearch
+              placeholder="Add Staff"
+              enter-button="Add"
+              size="large"
+              @search="addStaff"
+          />
+        </p>
       </div>
     </template>
   </div>

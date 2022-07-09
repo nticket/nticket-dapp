@@ -4,6 +4,8 @@ export enum ContractMethods {
   AddStaff = 'add_checkin_staff',
   RemoveStaff = 'remove_checkin_staff',
   GetMyTickets = 'nft_tokens_for_owner',
+  CheckIn = 'check_in',
+  AddPublicKey = 'add_public_key',
 }
 
 export type NContract = {
@@ -19,6 +21,14 @@ export type NContract = {
   ) => void;
   [ContractMethods.RemoveStaff]?: (
     arg: RemoveStaffArgs,
+    props: Record<any, any>
+  ) => void;
+  [ContractMethods.CheckIn]?: (
+    arg: CheckInArgs,
+    props: Record<any, any>
+  ) => void;
+  [ContractMethods.AddPublicKey]?: (
+    arg: AddPublicKeyArgs,
     props: Record<any, any>
   ) => void;
 };
@@ -49,10 +59,22 @@ export type RemoveStaffArgs = {
   account_id: string;
 };
 
+export type CheckInArgs = {
+  token_id: string | number;
+  signature_base64: string;
+  account_id: string;
+  timestamp: number;
+};
+
+export type AddPublicKeyArgs = {
+  public_key_base64: string;
+};
+
 export type EventsStoreState = {
   contract: null | NContract;
   events: NEvent[];
   ownedEvents: NEvent[];
+  tickets: NTicket[];
 };
 
 export type NEvent = {
