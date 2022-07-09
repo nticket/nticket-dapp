@@ -1,11 +1,15 @@
-import { createRouter, createWebHashHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router';
 
-import EventsListPage from '@/pages/EventsList/EventsListPage.vue';
-import HomePage from '@/pages/HomePage.vue';
+import EventsListPage from "@/pages/EventsList/EventsListPage.vue";
+import EventsManagementPage from "@/pages/EventsManagement/EventsManagementPage.vue";
+import EventsManagementStaffPage from "@/pages/EventsManagement/EventsManagementStaffPage.vue";
+import HomePage from "@/pages/HomePage.vue";
 
 const routes: any[] = [
   { path: '/', component: HomePage },
   { path: '/events', component: EventsListPage },
+  { path: '/events-management', component: EventsManagementPage },
+  { path: '/events-management/:id', component: EventsManagementStaffPage },
   {
     path: '/:pathMatch(.*)*',
     name: 'NotFound',
@@ -14,6 +18,6 @@ const routes: any[] = [
 ];
 
 export default createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes,
 });

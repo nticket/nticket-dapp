@@ -9,6 +9,10 @@
     <RouterLink v-if="isSignedIn" class="home-page__events-link" to="/events">
       Show Events
     </RouterLink>
+
+    <RouterLink v-if="isSignedIn" class="home-page__events-link" to="/events-management">
+      Manage My Events
+    </RouterLink>
   </div>
 </template>
 

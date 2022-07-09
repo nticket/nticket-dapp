@@ -1,11 +1,21 @@
 <template>
   <ALayout class="app-layout">
     <ALayoutHeader class="header">
-      <RouterLink class="header__logo" to="/">NTicket</RouterLink>
+      <RouterLink class="logo header__logo" to="/">NTicket</RouterLink>
+
+      <AMenu
+        v-model:selectedKeys="selectedKeys"
+        theme="dark"
+        mode="horizontal"
+        :style="{ lineHeight: '64px' }"
+      >
+        <AMenuItem key="1" @click="router.push('/events')">Events</AMenuItem>
+        <AMenuItem key="2" @click="router.push('/my-tickets')">My Tickets</AMenuItem>
+        <AMenuItem key="3" @click="router.push('/events-management')">Events Management</AMenuItem>
+      </AMenu>
     </ALayoutHeader>
 
     <ALayoutContent class="app-layout__content">
-      <h1>App</h1>
       <RouterView />
     </ALayoutContent>
 
@@ -14,20 +24,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onBeforeMount } from 'vue';
+import { defineComponent, onBeforeMount, ref } from 'vue';
 
 import { useNearStore } from '@/entities/nearStore';
+import { useRouter } from 'vue-router'
 
 export default defineComponent({
   name: 'App',
   setup() {
+    const router = useRouter();
     const nearStore = useNearStore();
 
     onBeforeMount(() => {
       nearStore.init();
     });
 
-    return {};
+    return {
+      router,
+      selectedKeys: ref<string[]>(['']),
+    };
   },
 });
 </script>
@@ -35,6 +50,8 @@ export default defineComponent({
 <style lang="scss">
 .header {
   &__logo {
+    float: left;
+    margin-right: 15px;
     color: white;
   }
 }

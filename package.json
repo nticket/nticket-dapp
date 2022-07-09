@@ -9,6 +9,7 @@
   },
   "dependencies": {
     "ant-design-vue": "^3.2.9",
+    "bignumber.js": "^9.0.2",
     "buffer": "^6.0.3",
     "core-js": "^3.8.3",
     "near-api-js": "^0.45.1",

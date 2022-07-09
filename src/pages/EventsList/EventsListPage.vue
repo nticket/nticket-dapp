@@ -7,7 +7,7 @@
         :key="item.token_series_id"
         :item="item"
         class="events-list-page__event-card"
-        @submit="handleBuyTicket(item.token_series_id)"
+        @submit="handleBuyTicket(item.token_series_id, item.price)"
       />
     </div>
   </div>
@@ -16,7 +16,7 @@
 <script lang="ts">
 import { Modal } from 'ant-design-vue';
 import { storeToRefs } from 'pinia';
-import { defineComponent, onMounted } from 'vue';
+import { defineComponent, onMounted, ref } from 'vue';
 
 import { useEventsStore } from '@/entities/events/eventsStore';
 
@@ -41,7 +41,7 @@ export const EventsListPage = defineComponent({
         title: 'Wanna this? Huh?',
         content: 'Wat?',
         onOk() {
-          eventsStore.buyEvent(id, price);
+          eventsStore.buyTicket(id, price);
         },
       });
     };
@@ -50,6 +50,7 @@ export const EventsListPage = defineComponent({
       events,
       handleBuyTicket,
       formatPrice: eventsStore._yoctoNearToNear,
+      selectedKeys: ref<string[]>(['1']),
     };
   },
 });

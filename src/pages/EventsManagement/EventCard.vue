@@ -13,7 +13,7 @@
       <p class="event-card__price">Price: {{ formattedPrice }} <span class="near-symbol">Ⓝ</span></p>
 
       <template #actions>
-        <AButton @click="handleSubmit">Buy</AButton>
+        <AButton @click="handleSubmit">Manage Staff</AButton>
       </template>
     </ACard>
   </ABadgeRibbon>
@@ -23,7 +23,6 @@
 import { computed, defineComponent, PropType } from 'vue';
 
 import { useEventsStore } from '@/entities/events/eventsStore';
-
 import { NEvent } from '@/entities/events/events.types';
 
 export const EventCard = defineComponent({
