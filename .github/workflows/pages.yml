@@ -13,6 +13,7 @@ jobs:
       - name: Install and Build 🔧
         run: |
           npm install
+          cp .env.example .env
           npm run build
 
       - name: Deploy 🚀
